@@ -39,3 +39,8 @@ h1 {
   border-radius: 19px;
   border-width: 3px;
 }
+
+h2 {
+  font-size: xxx-large;
+  color: rgb(229, 247, 255);
+}
