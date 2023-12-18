@@ -1,19 +1,35 @@
 import './App.css';
 import { useState } from 'react';
 
+let operationOrder = [];
+let isSumClicked = false
+
 export default function App() {
-  const[result, setResult] = useState('0');
+  const [result, setResult] = useState('0');
 
   function handleClick(value) {
-    const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
-    numbers.forEach((number) => {
-      if (number === value) {
-        setResult(number)
-      } else {
-        return null
+    const isDisplayed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+    if (isDisplayed.includes(value)) {
+      setResult(value)
+      operationOrder.push(Number(value))
+    }
+
+    if (value === '+') {
+      isSumClicked = true
+      setResult(result)
+    }
+
+    if (value === '=') {
+      if (isSumClicked) {
+        let sum = 0;
+        for (let i = 0; i < operationOrder.length; i++) {
+          sum += operationOrder[i];
+        }
+        setResult(sum)
       }
-    })
+    }
   }
+
   return (
     <div className="App">
       <h1>CALCULATOR</h1>
