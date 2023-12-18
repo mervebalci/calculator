@@ -2,10 +2,9 @@ import './App.css';
 import { useState } from 'react';
 
 let operationOrder = [];
-let isSumClicked = false
 
 export default function App() {
-  const [result, setResult] = useState('0');
+  const [result, setResult] = useState('');
 
   function handleClick(value) {
     const isDisplayed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
@@ -14,25 +13,19 @@ export default function App() {
       operationOrder.push(Number(value))
     }
 
-    if (value === '+') {
-      isSumClicked = true
-      setResult(result)
-    }
-
-    if (value === '=') {
-      if (isSumClicked) {
-        let sum = 0;
-        for (let i = 0; i < operationOrder.length; i++) {
-          sum += operationOrder[i];
-        }
-        setResult(sum)
+    if (value === '=' || value === '+') {
+      let sum = 0;
+      for (let i = 0; i < operationOrder.length; i++) {
+        sum += operationOrder[i];
       }
+      setResult(sum)
     }
   }
 
   return (
     <div className="App">
       <h1>CALCULATOR</h1>
+      <div className="resultBox">{result}</div>
       <div>
         <button className="square" id="AC" onClick={() => handleClick('AC')}>AC</button>
         <button className="square" id="+/-" onClick={() => handleClick('+/-')}>+/-</button>
@@ -62,7 +55,6 @@ export default function App() {
         <button className="square" id="." onClick={() => handleClick('.')}>.</button>
         <button className="square" id="=" onClick={() => handleClick('=')}>=</button>
       </div>
-      <h2>{result}</h2>
     </div>
   );
 }
